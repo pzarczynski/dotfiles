@@ -1,0 +1,12 @@
+font=CommitMono 11
+default-timeout=10000
+max-history=10
+
+background-color=#303446
+text-color=#c6d0f5
+border-color=#babbf1
+progress-color=over #414559
+
+[urgency=high]
+default-timeout=0
+border-color=#ef9f76

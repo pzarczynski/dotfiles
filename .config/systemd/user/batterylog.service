@@ -1,0 +1,11 @@
+[Unit]
+Description=Battery logger
+
+[Service]
+ExecStart=%h/.local/bin/batterylog.py
+Restart=always
+RestartSec=10
+Environment=BAT_LOG_INTERVAL=60
+
+[Install]
+WantedBy=default.target

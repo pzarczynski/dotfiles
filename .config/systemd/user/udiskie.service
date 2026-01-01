@@ -1,0 +1,8 @@
+[Unit]
+Description=udiskie automounter
+
+[Service]
+ExecStart=/usr/bin/udiskie -an
+
+[Install]
+WantedBy=default.target
