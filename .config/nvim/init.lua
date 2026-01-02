@@ -186,8 +186,9 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc  = "LSP hover" })
 
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 vim.keymap.set("n", "<leader>t", function()
-  vim.cmd("split | resize 5")
+  vim.cmd("vsplit | vertical resize 40")
   vim.cmd("terminal")
   vim.cmd("startinsert")
-end, { desc = "Open terminal at bottom" })
+end, { desc = "Open terminal"})
 
+vim.keymap.set("n", "<Esc>", [[<C-\><C-n>]])

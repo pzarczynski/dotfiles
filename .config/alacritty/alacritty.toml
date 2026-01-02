@@ -1,5 +1,5 @@
 [font]
-normal = { family = "IosevkaTerm Nerd Font Mono", style = "Light" }
+normal = { family = "Inconsolata Nerd Font Mono", style = "Light" }
 size = 17
 
 [window]
