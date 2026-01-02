@@ -45,9 +45,8 @@ client.background        $base
 ### Window decorations
 
 default_border none
-# for_window [app_id=".*"] opacity 0.95
-for_window [app_id="Alacritty"] opacity 0.92
-for_window [title="GPG Pinentry"] floating enable, move position center, resize set 620 210
+for_window [app_id=".*"] opacity 0.92
+for_window [app_id="Alacritty"] opacity 0.9
 
 ### Variables
 
@@ -58,15 +57,16 @@ set $up k
 set $right l
 set $term alacritty
 set $browser firefox
+set $mail thunderbird
 
 # Updated bemenu colors to Gruvbox (Base: #282828, Text: #ebdbb2, Red: #cc241d, Yellow: #d79921)
-set $menu bemenu-run --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "CommitMono 13" --ignorecase --prompt ">"
-set $dmenu bemenu --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "CommitMono 13" --ignorecase
+set $menu bemenu-run --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "IosevkaTerm Nerd Font Mono 15" --ignorecase --prompt ">"
+set $dmenu bemenu --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "IosevkaTerm Nerd Font Mono 15" --ignorecase
 
 
 ### Output configuration
 
-output * bg $HOME/.wallpaper.png fill scale 1.3
+output * bg $HOME/.wallpaper.jpg fill scale 1
 
 ### Idle configuration
 
@@ -100,8 +100,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+b exec $browser
 
-# System menu
-bindsym $mod+Shift+e exec "$scripts/sysmenu.sh" $dmenu
+bindsym $mod+Shift+e exec "$scripts/sysmenu.sh"
 
 # Bluetooth manager
 for_window [title="bluetui"] floating enable
@@ -115,23 +114,25 @@ bindsym $mod+Shift+n exec alacritty --title "nmtui" -e nmtui
 for_window [app_id="thunar"] floating enable, move position center, resize set 1000 700, opacity 0.95
 bindsym $mod+Shift+f exec thunar
 
-# Todo list
-for_window [title="tododo"] floating enable, move position center, resize set 800 600, opacity 0.95
-bindsym $mod+Shift+t exec alacritty --title "tododo" -e tododo
-
 # Screenshot
 bindsym Print exec grim -g "$(slurp)" - | wl-copy
 bindsym $mod+Print exec grim "$HOME/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png"
 
 # gotop
-for_window [app_id="gotop"] floating enable, move position 935 -95, \
-    resize set 380 300, border none, focus left
-bindsym $mod+Shift+m exec "$scripts/toggle-gotop.sh"
+for_window [app_id="gotop"] floating enable, move position 1170 -90, \
+    resize set 800 300, border none, focus left
+bindsym $mod+Shift+g exec "$scripts/toggle-gotop.sh"
+
+# mail
+bindsym $mod+Shift+m exec $mail
+
+# kanri
+bindsym $mod+Shift+t exec kanri
 
 # Audio
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; pkill -USR1 -x status_loop.sh
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; pkill -USR1 -x status_loop.sh
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0; pkill -USR1 -x status_loop.sh
 bindsym --locked XF86AudioMicMute exec wpctl set-mute \@DEFAULT_AUDIO_SOURCE@ toggle; pkill -USR1 -x status_loop.sh
 
 # Brightness
@@ -206,7 +207,8 @@ bindsym $mod+Shift+0 move container to workspace number 10
 ### Resize key bindings
 
 mode "resize" {
-    bindsym $left resize shrink width 10px
+    bindsym $left resize shrink width 10px    # Brak połączenia
+
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
@@ -240,7 +242,8 @@ bar {
 
 include /etc/sway/config.d/*
 
-exec udiskie -an 
+exec wl-paste --type text  --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 
 exec_always {
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Adwaita:dark

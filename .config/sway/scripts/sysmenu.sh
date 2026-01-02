@@ -10,6 +10,8 @@ action=$(echo "$options" | $menu_cmd -p "Select action:")
 
 confirm=$(echo "Yes\nNo" | $menu_cmd -p "Confirm $action?")
 
+echo "$action"
+
 if [ "$confirm" = "Yes" ]; then
     case "$action" in
         Lock) swaylock -f ;;
