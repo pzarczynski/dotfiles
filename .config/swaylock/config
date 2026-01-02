@@ -1,0 +1,61 @@
+font=IosevkaTerm Nerd Font
+font-size=16
+
+# Background: Gruvbox Dark Hard (#282828)
+color=282828
+
+# Backspace Highlight: Gruvbox Red-Orange (#fb4934)
+bs-hl-color=fb4934
+caps-lock-bs-hl-color=fb4934
+# Caps Lock Key Highlight: Gruvbox Green (#b8bb26)
+caps-lock-key-hl-color=b8bb26
+
+# Inside: Transparent (Kept as is)
+inside-color=00000000
+inside-clear-color=00000000
+inside-caps-lock-color=00000000
+inside-ver-color=00000000
+inside-wrong-color=00000000
+
+# Key Press Highlight: Gruvbox Green (#b8bb26)
+key-hl-color=b8bb26
+
+# Layout Box
+layout-bg-color=00000000
+layout-border-color=00000000
+# Layout Text: Gruvbox Foreground (#ebdbb2)
+layout-text-color=ebdbb2
+
+# Lines: Transparent (Kept as is)
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+# Ring Colors
+# Default Ring: Gruvbox Blue/Gray (#83a598)
+ring-color=83a598
+# Clear Ring: Gruvbox Yellow (#fabd2f)
+ring-clear-color=fabd2f
+# Caps Lock Ring: Gruvbox Orange (#fe8019)
+ring-caps-lock-color=fe8019
+# Verifying Ring: Gruvbox Aqua/Teal (#458588)
+ring-ver-color=458588
+# Wrong Ring: Gruvbox Red (#cc241d)
+ring-wrong-color=cc241d
+
+# Separator
+separator-color=00000000
+
+# Text Colors
+# Default Text: Gruvbox Foreground (#ebdbb2)
+text-color=ebdbb2
+# Clear Text: Gruvbox Yellow (#fabd2f)
+text-clear-color=fabd2f
+# Caps Lock Text: Gruvbox Orange (#fe8019)
+text-caps-lock-color=fe8019
+# Verifying Text: Gruvbox Aqua/Teal (#458588)
+text-ver-color=458588
+# Wrong Text: Gruvbox Red (#cc241d)
+text-wrong-color=cc241d
