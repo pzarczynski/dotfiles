@@ -1,6 +1,6 @@
 ## Font
 
-font pango:IosevkaTerm Nerd Font Mono 17
+font pango:IosevkaTerm Nerd Font Propo 17
 
 ### Scripts path
 set $scripts $HOME/.config/sway/scripts
@@ -47,6 +47,7 @@ client.background        $base
 default_border none
 for_window [app_id=".*"] opacity 0.92
 for_window [app_id="Alacritty"] opacity 0.9
+for_window [class="Matplotlib"] floating enable
 
 ### Variables
 
@@ -56,13 +57,8 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
+set $menu "rofi -show drun -disable-history -show-icons"
 set $browser firefox
-set $mail thunderbird
-
-# Updated bemenu colors to Gruvbox (Base: #282828, Text: #ebdbb2, Red: #cc241d, Yellow: #d79921)
-set $menu bemenu-run --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "IosevkaTerm Nerd Font Mono 15" --ignorecase --prompt ">"
-set $dmenu bemenu --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "IosevkaTerm Nerd Font Mono 15" --ignorecase
-
 
 ### Output configuration
 
@@ -83,10 +79,6 @@ input "type:keyboard" {
     repeat_rate 30
 }
 
-input "type:touchpad" {
-    natural_scroll enabled
-}
-
 input "type:pointer" {
     accel_profile adaptive
     pointer_accel 1.0
@@ -97,7 +89,7 @@ input "type:pointer" {
 # Apps
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-bindsym $mod+d exec $menu
+bindsym $mod+d exec $menu 
 bindsym $mod+b exec $browser
 
 bindsym $mod+Shift+e exec "$scripts/sysmenu.sh"
@@ -123,22 +115,11 @@ for_window [app_id="gotop"] floating enable, move position 1170 -90, \
     resize set 800 300, border none, focus left
 bindsym $mod+Shift+g exec "$scripts/toggle-gotop.sh"
 
-# mail
-bindsym $mod+Shift+m exec $mail
-
-# kanri
-bindsym $mod+Shift+t exec kanri
-
 # Audio
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; pkill -USR1 -x status_loop.sh
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0; pkill -USR1 -x status_loop.sh
-bindsym --locked XF86AudioMicMute exec wpctl set-mute \@DEFAULT_AUDIO_SOURCE@ toggle; pkill -USR1 -x status_loop.sh
-
-# Brightness
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0
+bindsym --locked XF86AudioMicMute exec wpctl set-mute \@DEFAULT_AUDIO_SOURCE@ toggle
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -222,22 +203,7 @@ bindsym $mod+r mode "resize"
 ### Status Bar
 
 bar {
-    position top
-
-    status_command "$scripts/status_loop.sh"
-
-    colors {
-        background         $base
-        statusline         $text
-        focused_statusline $text
-        focused_separator  $base
-
-        # target           border bg     text
-        focused_workspace  $base  $mauve    $crust
-        active_workspace   $base  $surface2 $text
-        inactive_workspace $base  $base     $text
-        urgent_workspace   $base  $red      $crust
-    }
+    swaybar_command waybar
 }
 
 include /etc/sway/config.d/*

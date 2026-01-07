@@ -1,0 +1,73 @@
+{
+  "layer": "top",
+  "height": 40,
+  "spacing": 4,
+  "modules-left": ["custom/rofi", "sway/workspaces", "tray", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "disk", "cpu", "custom/memory", "pulseaudio"],
+  // Modules configuration
+  "custom/rofi": {
+    "format": "",
+    "on-click": "rofi -show drun -disable-history -show-icons",
+    "on-click-right": "~/.config/waybar/scripts/power.sh",
+    "escape": true,
+    "tooltip": false
+  },
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "active-only": false,
+    "all-outputs": true,
+    "warp-on-scroll": false
+  },
+  "sway/mode": {
+    "format": "  {}",
+    "max-length": 50
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 8
+  },
+  "disk": {
+    "format": "  {specific_used:.1f}/{specific_total:.1f}GiB ({percentage_used}%)",
+    "interval": 20,
+    "unit": "GiB"
+  },
+  "cpu": {
+    "format": "  {usage}%",
+    "tooltip": false,
+    "interval": 1
+  },
+  "custom/memory": {
+    "exec": "~/.config/waybar/scripts/memory_usage.sh",
+    "interval": 2,
+    "return-type": "json",
+    "format": "  {}"
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "  {volume}%",
+    "format-muted": "  {volume}%",
+    "format-bluetooth": " 󰂰 {volume}%",
+    "format-bluetooth-muted": " 󰂲 </span> {volume}%",
+    "format-source": "  {volume}%",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "tooltip": false,
+    "max-volume": 100
+  },
+  "network": {
+    "interval": 2,
+    "format": " 󱘖 {bandwidthDownBytes:>5}",
+    "format-wifi": " {icon} {bandwidthDownBytes:>5}",
+    "format-ethernet": " 󰈀 {bandwidthDownBytes:>5}",
+    "format-icons": ["󰤫", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip": false,
+    "states": {
+      "normal": 25
+    }
+  },
+  "clock": {
+    "format": " {:%a %d | %H:%M}",
+    "tooltip": false,
+    "interval": 1
+  }
+}
