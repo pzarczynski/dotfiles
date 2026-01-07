@@ -45,8 +45,6 @@ client.background        $base
 ### Window decorations
 
 default_border none
-for_window [app_id=".*"] opacity 0.92
-for_window [app_id="Alacritty"] opacity 0.9
 for_window [class="Matplotlib"] floating enable
 
 ### Variables
