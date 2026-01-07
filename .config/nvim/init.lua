@@ -75,9 +75,6 @@ require("lazy").setup({
             opts = {},
         },
 
-        -- GitHub Copilot
-        { "github/copilot.vim" },
-        
         -- Treesitter
         {
             "nvim-treesitter/nvim-treesitter",
@@ -186,9 +183,8 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc  = "LSP hover" })
 
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 vim.keymap.set("n", "<leader>t", function()
-  vim.cmd("vsplit | vertical resize 40")
+  vim.cmd("vsplit | vertical resize 60")
   vim.cmd("terminal")
   vim.cmd("startinsert")
 end, { desc = "Open terminal"})
 
-vim.keymap.set("n", "<Esc>", [[<C-\><C-n>]])
