@@ -60,7 +60,7 @@ set $browser firefox
 
 ### Output configuration
 
-output * bg $HOME/.wallpaper.jpg fill scale 1
+output * bg $HOME/.wallpaper-jux.png fill scale 1
 
 ### Idle configuration
 

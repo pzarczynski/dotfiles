@@ -1,6 +1,6 @@
 [font]
-normal = { family = "IosevkaTerm NF" }
-size = 18
+normal = { family = "Inconsolata Nerd Font" }
+size = 14
 
 [window]
 decorations = "None"

@@ -1,0 +1,40 @@
+{
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "editor.fontSize": 20,
+    "editor.fontFamily": "Inconsolata Nerd Font Mono",
+    "editor.fontWeight": "300",
+    "terminal.integrated.fontSize": 17,
+    "chat.editor.fontSize": 20,
+    "debug.console.fontSize": 20,
+    "ruff.lineLength": 100,
+    "ruff.lint.enable": true,
+    "ruff.nativeServer": "on",
+    "ruff.importStrategy": "useBundled",
+    "ruff.lint.ignore": ["F", "UP", "E701", "E702"],
+    "ruff.lint.select": ["E", "F", "W", "UP"],
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit",
+            "source.fixAll": "explicit"
+        }
+    },
+    "notebook.defaultFormatter": "charliermarsh.ruff",
+    "notebook.codeActionsOnSave": {
+        "notebook.source.fixAll.ruff": "explicit",
+        "notebook.source.organizeImports.ruff": "explicit",
+    },
+    "terminal.integrated.fontFamily": "IosevkaTerm Nerd Font Mono",
+    "terminal.integrated.fontWeight": "300",
+    "editor.minimap.enabled": false,
+    "chat.viewSessions.orientation": "stacked",
+    "latex-workshop.formatting.latex": "tex-fmt",
+    "[latex]": {
+        "editor.defaultFormatter": "James-Yu.latex-workshop"
+    },
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ]
+}

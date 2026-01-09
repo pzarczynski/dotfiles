@@ -33,7 +33,7 @@
     "unit": "GiB"
   },
   "cpu": {
-    "format": "  {usage}%",
+    "format": "  {usage:>2}%",
     "tooltip": false,
     "interval": 1
   },
