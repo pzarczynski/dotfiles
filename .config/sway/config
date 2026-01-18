@@ -1,82 +1,30 @@
-## Font
-
-font pango:IosevkaTerm Nerd Font Mono 17
-
 ### Scripts path
 set $scripts $HOME/.config/sway/scripts
 
-### Theme
-# Gruvbox Dark Palette Map
-set $rosewater #ebdbb2
-set $flamingo #fb4934
-set $pink #d3869b
-set $mauve #b16286
-set $red #cc241d
-set $maroon #9d0006
-set $peach #fe8019
-set $yellow #d79921
-set $green #98971a
-set $teal #8ec07c
-set $sky #83a598
-set $sapphire #458588
-set $blue #458588
-set $lavender #83a598
-set $text #ebdbb2
-set $subtext1 #d5c4a1
-set $subtext0 #bdae93
-set $overlay2 #a89984
-set $overlay1 #928374
-set $overlay0 #7c6f64
-set $surface2 #665c54
-set $surface1 #504945
-set $surface0 #3c3836
-set $base #282828
-set $mantle #1d2021
-set $crust #1d2021
-
-# target                 title    bg        text       indicator  border
-client.focused           $lavender $base    $text      $rosewater $lavender
-client.focused_inactive  $overlay0 $base    $text      $rosewater $overlay0
-client.unfocused         $overlay0 $base    $text      $rosewater $overlay0
-client.urgent            $peach    $base    $peach     $overlay0  $peach
-client.placeholder       $overlay0 $base    $text      $overlay0  $overlay0
-client.background        $base
-
 ### Window decorations
-
 default_border none
-# for_window [app_id=".*"] opacity 0.95
-for_window [app_id="Alacritty"] opacity 0.92
-for_window [title="GPG Pinentry"] floating enable, move position center, resize set 620 210
+for_window [class="Matplotlib"] floating enable
 
 ### Variables
-
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
-set $browser firefox
-
-# Updated bemenu colors to Gruvbox (Base: #282828, Text: #ebdbb2, Red: #cc241d, Yellow: #d79921)
-set $menu bemenu-run --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "CommitMono 13" --ignorecase --prompt ">"
-set $dmenu bemenu --fb "#282828" --ff "#ebdbb2" --nb "#282828" --nf "#ebdbb2" --tb "#282828" --hb "#282828" --tf "#cc241d" --hf "#d79921" --af "#ebdbb2" --ab "#282828" --fn "CommitMono 13" --ignorecase
-
+set $term kitty
+set $browser librewolf
+set $menu "rofi -show drun -disable-history -show-icons"
 
 ### Output configuration
-
-output * bg $HOME/.wallpaper.png fill scale 1.3
+output * bg $HOME/.wallpaper-jux.png fill scale 1.3
 
 ### Idle configuration
-
 exec swayidle -w \
          timeout 300 'swaylock -f' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f'
 
 ### Input configuration
-
 input "type:keyboard" {
     xkb_layout pl
     repeat_delay 200
@@ -93,31 +41,23 @@ input "type:pointer" {
 }
 
 ### Key bindings
-
 # Apps
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+b exec $browser
 
-# System menu
-bindsym $mod+Shift+e exec "$scripts/sysmenu.sh" $dmenu
-
 # Bluetooth manager
-for_window [title="bluetui"] floating enable
-bindsym $mod+Shift+b exec alacritty --title "bluetui" -e bluetui
+for_window [app_id="bluetui"] floating enable, resize set 500 700
+bindsym $mod+Shift+b exec foot -a bluetui bluetui
 
 # Network manager
-for_window [title="nmtui"] floating enable
-bindsym $mod+Shift+n exec alacritty --title "nmtui" -e nmtui
+for_window [app_id="impala"] floating enable, resize set 500 700
+bindsym $mod+Shift+n exec foot -a impala impala
 
 # File manager
 for_window [app_id="thunar"] floating enable, move position center, resize set 1000 700, opacity 0.95
 bindsym $mod+Shift+f exec thunar
-
-# Todo list
-for_window [title="tododo"] floating enable, move position center, resize set 800 600, opacity 0.95
-bindsym $mod+Shift+t exec alacritty --title "tododo" -e tododo
 
 # Screenshot
 bindsym Print exec grim -g "$(slurp)" - | wl-copy
@@ -126,13 +66,13 @@ bindsym $mod+Print exec grim "$HOME/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png"
 # gotop
 for_window [app_id="gotop"] floating enable, move position 935 -95, \
     resize set 380 300, border none, focus left
-bindsym $mod+Shift+m exec "$scripts/toggle-gotop.sh"
+bindsym $mod+Shift+g exec "$scripts/toggle-gotop.sh"
 
 # Audio
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; pkill -USR1 -x status_loop.sh
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; pkill -USR1 -x status_loop.sh
-bindsym --locked XF86AudioMicMute exec wpctl set-mute \@DEFAULT_AUDIO_SOURCE@ toggle; pkill -USR1 -x status_loop.sh
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.3
+bindsym --locked XF86AudioMicMute exec wpctl set-mute \@DEFAULT_AUDIO_SOURCE@ toggle
 
 # Brightness
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
@@ -143,7 +83,6 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym $mod+Shift+c reload
 
 ### Layout key bindings
-
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 floating_modifier $mod normal
@@ -178,7 +117,6 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 ### Workspace key bindings
-
 # Switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -204,7 +142,6 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 ### Resize key bindings
-
 mode "resize" {
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
@@ -218,30 +155,15 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 ### Status Bar
-
 bar {
-    position top
-
-    status_command "$scripts/status_loop.sh"
-
-    colors {
-        background         $base
-        statusline         $text
-        focused_statusline $text
-        focused_separator  $base
-
-        # target           border bg     text
-        focused_workspace  $base  $mauve    $crust
-        active_workspace   $base  $surface2 $text
-        inactive_workspace $base  $base     $text
-        urgent_workspace   $base  $red      $crust
-    }
+	swaybar_command waybar
 }
 
 include /etc/sway/config.d/*
 
-exec udiskie -an 
+exec wl-paste --type text  --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 
 exec_always {
-    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Adwaita:dark
+    dbus-update-activation-environment --systemd GTK_THEME=Adwaita:dark
 }

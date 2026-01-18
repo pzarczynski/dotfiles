@@ -1,18 +1,5 @@
 #!/bin/sh
 
-# ---------------- Backlight ----------------
-val=$(cat /sys/class/backlight/*/brightness)
-max=$(cat /sys/class/backlight/*/max_brightness)
-pct=$(( val * 100 / max ))
-if [ "$pct" -ge 66 ]; then
-    bl_icon="󰃠"
-elif [ "$pct" -ge 33 ]; then
-    bl_icon="󰃟"
-else
-    bl_icon="󰃞"
-fi
-backlight="$bl_icon $pct%"
-
 # ---------------- Battery ----------------
 cap=$(cat /sys/class/power_supply/BAT0/capacity)
 status=$(cat /sys/class/power_supply/BAT0/status)
@@ -31,29 +18,19 @@ esac
 bat_mode=$(~/.config/sway/scripts/auto-battery-mode.sh)
 [ "$bat_mode" = "power-saver" ] && bat_icon="󰂏"
 battery="$bat_icon $cap%"
-
-# ---------------- Keyboard Layout ----------------
-layout=$(swaymsg -t get_inputs \
-    | grep -m1 "xkb_active_layout_name" \
-    | sed 's/.*: "//;s/",.*//'
-)
     
-case "$layout" in
-    *English*) layout="us" ;;
-    *Polish*) layout="pl" ;;
-esac
-
-keyboard="󰌌 $layout"
-
 # ---------------- Network ----------------
 wifi=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2)
-if [ -n "$wifi" ]; then
+if nmcli -t -f DEVICE,TYPE,STATE device status \
+        | grep -qE '^[^:]+:ethernet:connected$'; then
+    net_icon="󰈁"
+    network="$net_icon"
+elif [ -n "$wifi" ]; then
     net_icon="󰖩"
     network="$net_icon $wifi"
-elif ip link show | grep -q "state UP.*eth"; then
-    network="󰈀"
 else
-    network="󰖪"
+    net_icon="󰖪"
+    network="$net_icon"
 fi
 
 # ---------------- Volume ----------------

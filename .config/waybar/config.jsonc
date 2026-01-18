@@ -1,0 +1,97 @@
+{
+  "layer": "top",
+  "height": 12,
+  "spacing": 0,
+  "modules-left": ["custom/rofi", "sway/workspaces", "tray", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/net_speed", "disk", "cpu", "custom/memory", "pulseaudio", "battery"],
+  // Modules configuration
+  "custom/rofi": {
+    "format": "",
+    "on-click": "rofi -show drun -disable-history -show-icons",
+    "on-click-right": "~/.config/waybar/scripts/power.sh",
+    "escape": true,
+    "tooltip": false
+  },
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "active-only": false,
+    "all-outputs": true,
+    "warp-on-scroll": false
+  },
+  "sway/mode": {
+    "format": "  {}",
+    "max-length": 50
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 8
+  },
+  "disk": {
+    "format": " {specific_used:.0f}/{specific_total:.0f}G",
+    "interval": 20,
+    "unit": "GiB"
+  },
+  "cpu": {
+    "format": " {usage:>2}%",
+    "tooltip": false,
+    "interval": 1
+  },
+  "custom/memory": {
+    "exec": "~/.config/waybar/scripts/memory_usage.sh",
+    "interval": 2,
+    "return-type": "json",
+    "format": " {}"
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": " {volume}%",
+    "format-muted": " {volume}%",
+    "format-bluetooth": "󰂰 {volume}%",
+    "format-bluetooth-muted": "󰂲 {volume}%",
+    "format-source": " {volume}%",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "tooltip": false,
+    "max-volume": 100
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      "good": 99,
+      "warning": 30,
+      "critical": 20
+    },
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "format": "{icon} {capacity}%",
+    "format-critical": "{icon} {capacity}%!!",
+    "format-warning": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
+    "format-charging": "󰂅 {capacity}%",
+    "format-charging-warning": "󰢝 {capacity}%",
+    "format-charging-critical": "󰢜 {capacity}%",
+    "format-plugged": "󰂅 {capacity}%",
+    "tooltip": false
+  },
+  	"custom/net_speed": {
+  		"exec": "~/.config/waybar/scripts/network_speed.py",
+  		"return-type": "json",
+		"format": "{}",
+  		"interval": 1
+	},
+  "clock": {
+    "format": "{:%a %d | %H:%M}",
+    "tooltip": false,
+    "interval": 1
+  }
+}

@@ -1,0 +1,22 @@
+#!/bin/bash
+set -u
+
+USER="notuser"
+HOST="mieszkanie58.freeddns.org"
+MAC="04:7c:16:87:8a:c0"
+
+wol -v -h ${HOST} -p 9 ${MAC} 
+
+if [[ "${1:-}" == "ssh" ]]; then
+    SSH_CMD=(ssh -q \
+        -o BatchMode=yes \
+        -o ConnectTimeout=5 \
+        -p 2137 \
+        ${USER}@${HOST})
+
+    if ! "${SSH_CMD[@]}"; then
+        echo "Connection failed. Retrying in 10 seconds..."
+        sleep 10s
+        "${SSH_CMD[@]}"    
+    fi
+fi
